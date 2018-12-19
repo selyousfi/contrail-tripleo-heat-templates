@@ -8,3 +8,15 @@
 +    rsync -a /usr/share/contrail-tripleo-puppet/ /usr/share/openstack-puppet/modules/tripleo/
      exit 0
  fi
+
+command=${command:-update}
+full_command="yum -q -y $command $command_arguments"
+
+echo "Running: $full_command"
+check_for_yum_lock
+result=$($full_command)
+return_code=$?
+echo "$result"
+echo "yum return code: $return_code"
++ rsync -a /usr/share/contrail-tripleo-puppet/ /usr/share/openstack-puppet/modules/tripleo/
+
